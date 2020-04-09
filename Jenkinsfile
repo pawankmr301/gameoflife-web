@@ -1,35 +1,25 @@
-#!groovy
 pipeline {
-  agent none
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '20'))
-    timeout(time: 30, unit: 'MINUTES')
-  }
- }
-
-stages {
-  stage('Build') {
-    steps {
-      sh 'make build'
-      }
-   }
-
-  stage('Copy') {
-    steps {
-      sh 'make copy'
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                sh 'make build'
+            }
+        }
+        stage('copy') {
+            steps {
+                sh 'make copy'
+            }
+        }
+        stage('docker-run') {
+            steps {
+                sh 'make docker-run'
+            }
+        }
+        stage('docker-build and push') {
+            steps {
+                sh 'make docker-build'
+            }
+        }
     }
-  }
-
-  stage('Docker Build & run') {
-    steps {
-      sh 'make docker-run'
-    }
-  }
-
-  stage('Docker Build & push') {
-    steps {
-      sh 'make docker-build'
-    }
-  }
-
 }

@@ -10,7 +10,7 @@ copy:
 	 ./copy-artifacts.sh
 
 docker-run:
-	@echo "MAKE docker-build ==========================================="
+	@echo "MAKE docker-run ==========================================="
 	 ./docker-run.sh
 
 docker-build:
