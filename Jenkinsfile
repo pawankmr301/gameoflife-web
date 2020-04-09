@@ -8,11 +8,28 @@ pipeline {
  }
 
 stages {
-  stage('Start') {
+  stage('Build') {
     steps {
       sh 'make build'
-      sh 'make copy'
-      sh 'make docker-build'
       }
+   }
+
+  stage('Copy') {
+    steps {
+      sh 'make copy'
     }
- }
+  }
+
+  stage('Docker Build & run') {
+    steps {
+      sh 'make docker-run'
+    }
+  }
+
+  stage('Docker Build & push') {
+    steps {
+      sh 'make docker-build'
+    }
+  }
+
+}
